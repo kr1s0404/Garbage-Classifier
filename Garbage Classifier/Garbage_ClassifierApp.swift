@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct Garbage_ClassifierApp: App
 {
+    
     @StateObject var photoViewModel = PhotoViewModel()
     @StateObject var classifierViewModel = ClassifierViewModel()
+    @StateObject var firestoreViewModel = FirestoreViewModel()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene
     {
@@ -20,6 +27,7 @@ struct Garbage_ClassifierApp: App
             ContentView()
                 .environmentObject(photoViewModel)
                 .environmentObject(classifierViewModel)
+                .environmentObject(firestoreViewModel)
                 .onAppear {
                     UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 }

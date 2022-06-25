@@ -11,7 +11,7 @@ struct ContentView: View
 {
     @EnvironmentObject var photoViewModel: PhotoViewModel
     @EnvironmentObject var classifierViewModel: ClassifierViewModel
-    
+    @EnvironmentObject var firestoreViewModel: FirestoreViewModel
     
     var body: some View
     {
@@ -95,5 +95,6 @@ struct ContentView_Previews: PreviewProvider
         ContentView()
             .environmentObject(PhotoViewModel())
             .environmentObject(ClassifierViewModel())
+            .environmentObject(FirestoreViewModel())
     }
 }
