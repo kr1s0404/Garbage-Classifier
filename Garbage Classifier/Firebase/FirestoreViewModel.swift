@@ -12,6 +12,7 @@ struct Post: Identifiable
 {
     var id: String
     var name: String
+    var imageURL: String
     var tag: [tag]
 }
 
@@ -49,12 +50,13 @@ class FirestoreViewModel: ObservableObject
 
                         return Post(id: d.documentID,
                                     name: d["name"] as? String ?? "",
-                                    tag: [tag(text: tags[0]["text"] as! String,
-                                              confidence: tags[0]["confidence"] as! Int),
-                                          tag(text: tags[1]["text"] as! String,
-                                                    confidence: tags[1]["confidence"] as! Int),
-                                          tag(text: tags[2]["text"] as! String,
-                                                    confidence: tags[2]["confidence"] as! Int)])
+                                    imageURL: d["imageURL"] as? String ?? "",
+                                    tag: [tag(text: tags[0]["text"] as? String ?? "",
+                                              confidence: tags[0]["confidence"] as? Int ?? 0),
+                                          tag(text: tags[1]["text"] as? String ?? "",
+                                                    confidence: tags[1]["confidence"] as? Int ?? 0),
+                                          tag(text: tags[2]["text"] as? String ?? "",
+                                                    confidence: tags[2]["confidence"] as? Int ?? 0)])
                     }
                     print(self.posts)
                 }
@@ -62,22 +64,26 @@ class FirestoreViewModel: ObservableObject
         }
     }
     
-    func write(tags: [Tag]) {
+    func write(tags: [Tag], image: UIImage) {
         let db = Firestore.firestore()
         
-        let data = ["tags": [["text":tags[0].text, "confidence":tags[0].confidence],
-                             ["text":tags[1].text, "confidence":tags[1].confidence],
-                             ["text":tags[2].text, "confidence":tags[2].confidence]]] as [String : Any]
-        
-        
-        db.collection("posts")
-            .document()
-            .setData(data) { error in
-                if let error = error {
-                    print(error)
-                    return
+        ImageUploader.uploadImage(image: image) { imageURL in
+            let data = ["name": "test",
+                        "imageURL": imageURL,
+                        "tags": [["text":tags[0].text, "confidence":tags[0].confidence],
+                                 ["text":tags[1].text, "confidence":tags[1].confidence],
+                                 ["text":tags[2].text, "confidence":tags[2].confidence]]] as [String : Any]
+            
+            db.collection("posts")
+                .document()
+                .setData(data) { error in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    print("DEBUG: Did upload data to firestore")
+                    self.fetch()
                 }
-                print("DEBUG: Did upload data to firestore")
-            }
+        }
     }
 }

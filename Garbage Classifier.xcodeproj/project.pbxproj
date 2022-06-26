@@ -26,6 +26,7 @@
 		2FB9D747286780CF00484854 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FB9D746286780CF00484854 /* FirebaseStorage */; };
 		2FB9D7492867811400484854 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FB9D7482867811400484854 /* GoogleService-Info.plist */; };
 		2FB9D74C2867833E00484854 /* FirestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB9D74B2867833E00484854 /* FirestoreViewModel.swift */; };
+		2FFD935528680BBF00B7B514 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFD935428680BBF00B7B514 /* ImageUploader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		2F683662281F7526006A3FBD /* GarbageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GarbageClassifier.mlmodel; sourceTree = "<group>"; };
 		2FB9D7482867811400484854 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FB9D74B2867833E00484854 /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
+		2FFD935428680BBF00B7B514 /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		2F172F16285F530900C2F7F7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2FFD935428680BBF00B7B514 /* ImageUploader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				2F683663281F7527006A3FBD /* GarbageClassifier.mlmodel in Sources */,
 				2F172F26285F6A8C00C2F7F7 /* ClassifierViewModel.swift in Sources */,
 				2F172F10285F43FB00C2F7F7 /* Picker.swift in Sources */,
+				2FFD935528680BBF00B7B514 /* ImageUploader.swift in Sources */,
 				2F172F12285F4C5B00C2F7F7 /* Image.swift in Sources */,
 				2F172F2A285FDFB600C2F7F7 /* Tag.swift in Sources */,
 				2F172F05285F409100C2F7F7 /* ImagePicker.swift in Sources */,

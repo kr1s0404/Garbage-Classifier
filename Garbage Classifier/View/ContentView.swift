@@ -45,14 +45,16 @@ struct ContentView: View
                     .frame(height: 280)
                 
                 Button {
-                    firestoreViewModel.write(tags: classifierViewModel.tags)
+                    if let image = photoViewModel.image {
+                        firestoreViewModel.write(tags: classifierViewModel.tags, image: image)
+                    }
                 } label: {
                     Text("上傳")
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, 50)
                         .padding(.vertical, 15)
-                        .cornerRadius(10)
                         .foregroundColor(.white)
                         .background(Color.blue)
+                        .cornerRadius(10)
                 }
                 
                 Spacer()
