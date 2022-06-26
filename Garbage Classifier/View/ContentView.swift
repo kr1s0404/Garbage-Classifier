@@ -44,6 +44,17 @@ struct ContentView: View
                 TagView(tags: $classifierViewModel.tags)
                     .frame(height: 280)
                 
+                Button {
+                    firestoreViewModel.write(tags: classifierViewModel.tags)
+                } label: {
+                    Text("上傳")
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 15)
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                }
+                
                 Spacer()
             }
             .padding()

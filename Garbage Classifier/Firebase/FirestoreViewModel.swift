@@ -12,10 +12,10 @@ struct Post: Identifiable
 {
     var id: String
     var name: String
-    var tag: tag
+    var tag: [tag]
 }
 
-struct tag
+struct tag: Codable
 {
     var text: String
     var confidence: Int
@@ -44,17 +44,40 @@ class FirestoreViewModel: ObservableObject
             if let snapshot = snapshot {
                 DispatchQueue.main.async {
                     self.posts = snapshot.documents.map { d in
-                        
-                        let tagdata = d["tag"] as! [String:Any]
-                        
+
+                        let tags = d["tags"] as! [[String:Any]]
+
                         return Post(id: d.documentID,
                                     name: d["name"] as? String ?? "",
-                                    tag: tag(text: tagdata["text"] as? String ?? "",
-                                             confidence: tagdata["confidence"] as? Int ?? 0))
+                                    tag: [tag(text: tags[0]["text"] as! String,
+                                              confidence: tags[0]["confidence"] as! Int),
+                                          tag(text: tags[1]["text"] as! String,
+                                                    confidence: tags[1]["confidence"] as! Int),
+                                          tag(text: tags[2]["text"] as! String,
+                                                    confidence: tags[2]["confidence"] as! Int)])
                     }
                     print(self.posts)
                 }
             }
         }
+    }
+    
+    func write(tags: [Tag]) {
+        let db = Firestore.firestore()
+        
+        let data = ["tags": [["text":tags[0].text, "confidence":tags[0].confidence],
+                             ["text":tags[1].text, "confidence":tags[1].confidence],
+                             ["text":tags[2].text, "confidence":tags[2].confidence]]] as [String : Any]
+        
+        
+        db.collection("posts")
+            .document()
+            .setData(data) { error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print("DEBUG: Did upload data to firestore")
+            }
     }
 }
